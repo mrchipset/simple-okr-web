@@ -1,0 +1,22 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+  postgresql:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
