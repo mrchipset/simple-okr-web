@@ -1,8 +1,18 @@
 <template>
   <div class="container">
     <el-card class="card">
-        <img alt="Vue logo" src="../assets/logo.png" />
-        <el-form :model="loginForm" :rules="rules" status-icon ref="loginForm" label-width="120px" class="login-ruleform">
+        <template v-slot:header>
+            <img alt="Vue logo" src="../assets/logo.png" width="64" height="64"/>
+            <br>
+            <span>Simple OKR</span>
+        </template>
+
+        <div id="nav-btn-grp">
+            <el-button type="text" @click="nav='login'">Login</el-button>
+            <el-button type="text" @click="nav='register'">Register</el-button>
+        </div>
+        <!-- show login form-->
+        <el-form v-show="nav=='login'" :model="loginForm" :rules="rules" status-icon ref="loginForm" label-width="120px" class="login-ruleform">
             <el-form-item label="Username" prop="username">
                 <el-input type="text" 
                     v-model="loginForm.username" 
@@ -21,6 +31,29 @@
             </el-form-item>
             <el-form-item>
                 <el-button v-on:click="login" type="primary">Login</el-button>
+            </el-form-item>
+        </el-form>
+        <!-- show register form-->
+        <el-form v-show="nav=='register'" :model="loginForm" :rules="rules" status-icon ref="loginForm" label-width="120px" class="login-ruleform">
+            <p>Register</p>
+            <el-form-item label="Username" prop="username">
+                <el-input type="text" 
+                    v-model="loginForm.username" 
+                    placeholder="Please Input Username"
+                    autocomplete="on"
+                    autofocus="off"
+                    />
+            </el-form-item>
+            <el-form-item label="Password" prop="password">
+                <el-input type="password"
+                    v-model="loginForm.password"
+                    placeholder="Please Input Password"
+                    autocomplete="off"
+                    autofocus="off"
+                    />
+            </el-form-item>
+            <el-form-item>
+                <el-button v-on:click="Register" type="primary">Login</el-button>
             </el-form-item>
         </el-form>
     </el-card>
@@ -51,6 +84,7 @@ export default class Login extends Vue {
                 username: "",
                 password: ""
             } as LoginForm,
+            nav: "login" as string,
             rules: {
             username: [
                 {
