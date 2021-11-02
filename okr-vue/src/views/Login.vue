@@ -7,55 +7,58 @@
             <span>Simple OKR</span>
         </template>
 
-        <div id="nav-btn-grp">
-            <el-button type="text" @click="nav='login'">Login</el-button>
-            <el-button type="text" @click="nav='register'">Register</el-button>
+        <el-radio-group id="nav-btn-grp" v-model="nav">
+            <el-radio-button border class="radio-login" label="login">Login</el-radio-button>
+            <el-radio-button border class="radio-register" label="register">Register</el-radio-button >
+        </el-radio-group>
+        <div class="form-div">
+            <!-- show login form-->
+            <el-form v-show="nav=='login'" :model="loginForm" :rules="rules" status-icon ref="loginForm" label-width="120px" class="login-ruleform">
+                <el-form-item label="Username" prop="username">
+                    <el-input type="text" 
+                        v-model="loginForm.username" 
+                        placeholder="Please Input Username"
+                        autocomplete="on"
+                        autofocus="off"
+                        />
+                </el-form-item>
+                <el-form-item label="Password" prop="password">
+                    <el-input type="password"
+                        v-model="loginForm.password"
+                        placeholder="Please Input Password"
+                        autocomplete="off"
+                        autofocus="off"
+                        />
+                </el-form-item>
+                <el-form-item class="submit-btn">
+                    <el-button v-on:click="login" type="primary">Login</el-button>
+                </el-form-item>
+            </el-form>
+            <!-- show register form-->
+            <el-form v-show="nav=='register'" :model="loginForm" :rules="rules" status-icon ref="loginForm" label-width="120px" class="login-ruleform">
+                <p>Register</p>
+                <el-form-item label="Username" prop="username">
+                    <el-input type="text" 
+                        v-model="loginForm.username" 
+                        placeholder="Please Input Username"
+                        autocomplete="on"
+                        autofocus="off"
+                        />
+                </el-form-item>
+                <el-form-item label="Password" prop="password">
+                    <el-input type="password"
+                        v-model="loginForm.password"
+                        placeholder="Please Input Password"
+                        autocomplete="off"
+                        autofocus="off"
+                        />
+                </el-form-item>
+                <el-form-item class="submit-btn">
+                    <el-button v-on:click="Register" type="primary">Register</el-button>
+                </el-form-item>
+            </el-form>
         </div>
-        <!-- show login form-->
-        <el-form v-show="nav=='login'" :model="loginForm" :rules="rules" status-icon ref="loginForm" label-width="120px" class="login-ruleform">
-            <el-form-item label="Username" prop="username">
-                <el-input type="text" 
-                    v-model="loginForm.username" 
-                    placeholder="Please Input Username"
-                    autocomplete="on"
-                    autofocus="off"
-                    />
-            </el-form-item>
-            <el-form-item label="Password" prop="password">
-                <el-input type="password"
-                    v-model="loginForm.password"
-                    placeholder="Please Input Password"
-                    autocomplete="off"
-                    autofocus="off"
-                    />
-            </el-form-item>
-            <el-form-item>
-                <el-button v-on:click="login" type="primary">Login</el-button>
-            </el-form-item>
-        </el-form>
-        <!-- show register form-->
-        <el-form v-show="nav=='register'" :model="loginForm" :rules="rules" status-icon ref="loginForm" label-width="120px" class="login-ruleform">
-            <p>Register</p>
-            <el-form-item label="Username" prop="username">
-                <el-input type="text" 
-                    v-model="loginForm.username" 
-                    placeholder="Please Input Username"
-                    autocomplete="on"
-                    autofocus="off"
-                    />
-            </el-form-item>
-            <el-form-item label="Password" prop="password">
-                <el-input type="password"
-                    v-model="loginForm.password"
-                    placeholder="Please Input Password"
-                    autocomplete="off"
-                    autofocus="off"
-                    />
-            </el-form-item>
-            <el-form-item>
-                <el-button v-on:click="Register" type="primary">Login</el-button>
-            </el-form-item>
-        </el-form>
+        
     </el-card>
   </div>
 </template>
@@ -113,14 +116,13 @@ export default class Login extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .card {
     min-width: 480px;
     max-width: 40%;
     margin-right: 20px;
     margin-left: 20px;
     transition: all .5s;
-    
 }
 
 .card:hover {
@@ -132,4 +134,29 @@ export default class Login extends Vue {
     display: flex;
     justify-content:center;
 }
+
+
+.el-radio-group {
+    width: 100%;
+    min-width: 100px;
+    max-width: 200px;
+    margin: 0px;
+    margin-bottom: 20px;
+    .radio-login {
+        min-width: 50px;
+        border: 5px;
+    }
+
+    .radio-register {
+        min-width: 50px;
+        border: 5px;
+    }
+}
+
+.submit-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 </style>
