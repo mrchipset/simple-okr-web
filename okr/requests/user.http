@@ -1,0 +1,5 @@
+## Send a Get request
+GET http://localhost:8080/user/hello HTTP/1.1
+User-Agent: vscode-restclient
+
+##
