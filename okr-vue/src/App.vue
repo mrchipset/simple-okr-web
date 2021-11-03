@@ -1,10 +1,16 @@
 <template>
-  <div id="nav">
+  <!-- <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link to="/login">Login</router-link>
-  </div>
+  </div> -->
+  <el-header>
+    Header
+  </el-header>
   <router-view />
+  <el-footer>
+    Footer
+  </el-footer>
 </template>
 
 <style>
@@ -27,5 +33,13 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.el-header {
+  margin-top: 10px;
+}
+
+.el-footer {
+  margin-top: 20px;
 }
 </style>
