@@ -101,6 +101,8 @@
 <script lang="ts">
 import { /*Options,*/ Vue } from "vue-class-component";
 import 'animate.css';
+import service from '@/utils/request'
+
 // @Options({
 //   components: {
 //   },
@@ -121,6 +123,7 @@ interface RegisterForm extends LoginForm {
 export default class Login extends Vue {
     private login() : void {
         console.log('Login clicked.')
+        service.get('/user/greet/example')
     }
 
     data() {
