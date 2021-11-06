@@ -99,14 +99,11 @@
 </template>
 
 <script lang="ts">
-import { /*Options,*/ Vue } from "vue-class-component";
-import 'animate.css';
-import service from '@/utils/request'
+import { defineComponent } from 'vue';
+import 'animate.css'
+import { userApi }  from '@/api/UserApi'
+import { ElMessage } from 'element-plus'
 
-// @Options({
-//   components: {
-//   },
-// })
 
 interface LoginForm {
     username: string,
@@ -120,12 +117,9 @@ interface RegisterForm extends LoginForm {
     passwordConfirm: string
 }
 
-export default class Login extends Vue {
-    private login() : void {
-        console.log('Login clicked.')
-        service.get('/user/greet/example')
-    }
-
+export default defineComponent({
+    name: 'Login',
+    
     data() {
         return {
             loginForm: {
@@ -190,9 +184,34 @@ export default class Login extends Vue {
             ]
             }
         }
-    }
-    
-}
+    },
+    methods: {
+        login() : void {
+                console.log('Login clicked.')
+                const waitingMessage = ElMessage({
+                    message: 'Login ...',
+                })
+                
+                const isTrue = userApi.Login(this.loginForm.username, this.loginForm.password)
+                isTrue.then( val => {
+                    waitingMessage.close()
+                    if (val) {
+                        ElMessage({
+                            message: 'Welcome, ' + this.loginForm.username,
+                            type: 'success'
+                        })
+                    } else
+                    {
+                        ElMessage({
+                            message: 'Error, Please retry ',
+                            type: 'error'
+                        })
+                    }
+                })
+            }
+    },
+});
+
 </script>
 
 <style lang="scss" scoped>
@@ -216,7 +235,7 @@ export default class Login extends Vue {
 
 .small-font {
     font-size: 9px;
-    /deep/ .el-checkbox__label {
+    .el-checkbox__label {
         font-size: 9px;
         font-weight: bold;
         line-height: 24px;

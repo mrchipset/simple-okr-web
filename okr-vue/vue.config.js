@@ -7,8 +7,9 @@ module.exports = {
     // proxy for dev server
     open: false,
     host: 'localhost',
-    port: 8082,
+    port: 8080,
     https: false,
+    compress: true,
     proxy: {
         '/api': {
             target: process.env.VUE_APP_API_SERVER, // backend server

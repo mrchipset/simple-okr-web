@@ -14,31 +14,12 @@ console.log(process.env.VUE_APP_BASE_API);
 let loading:any;
 let requestCount:number = 0;
 
-const ShowLoading = () => {
-    if (requestCount === 0 && !loading) {
-        loading = ElLoading.service({
-            text: 'The content is running, patience...',
-            background: 'rgba(0, 0, 0, 0.7)',
-            spinner: 'el-icon-loading'
-        })
-    }
-    requestCount++;
-}
-
-const HideLoading = () => {
-    requestCount--
-    if (requestCount == 0) {
-        loading.close()
-    }
-}
 
 
 // Request Interceptor
 service.interceptors.request.use(config => {
-    ShowLoading()
     return config
 }, error => {
-    HideLoading()
     console.log(error)
     Promise.reject(error)
 })
@@ -46,8 +27,6 @@ service.interceptors.request.use(config => {
 
 // Response Interceptor
 service.interceptors.response.use(res => {
-        HideLoading()
-        // 未设置状态码则默认成功状态
         const code = res.status || 200;
         console.log(code)
         if(code == 200){
@@ -58,7 +37,6 @@ service.interceptors.response.use(res => {
         }
     },
     error => {
-        HideLoading()
         console.log(error)
         return Promise.reject(error)
     }
